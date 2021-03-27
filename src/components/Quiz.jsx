@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
 import axios from 'axios'
+import QuizContent from './QuizContent'
 
 const Quiz = () => {
 	// define state for category select component
@@ -8,7 +9,9 @@ const Quiz = () => {
 	// define state for difficulty select component
 	const [diff, setDiff] = useState(null)
 	// define state for quiz data from response from OpenTrivia API
-	const [quizData, setQuizData] = useState(null)
+	const [quizData, setQuizData] = useState([])
+	// define state for condition of the game (is the game starting or not)
+	const [startGame, setStartGame] = useState(false)
 
 	// define options in react-select 'Select' component
 	const categoryOptions = [
@@ -36,6 +39,9 @@ const Quiz = () => {
 				// console.log(res.data.results)
 				setQuizData(res.data.results)
 			})
+
+		// change startGame condition to true. When user press start it means the game is starting
+		setStartGame(true)
 	}
 
 	return (
@@ -64,6 +70,10 @@ const Quiz = () => {
 
 				<button>Start Game</button>
 			</form>
+
+			{ startGame !== false && (
+				<QuizContent data={ quizData } />
+			)}
 		</div>
 	)
 }
