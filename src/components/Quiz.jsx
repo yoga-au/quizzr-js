@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
 import axios from 'axios'
+// import component
 import QuizContent from './QuizContent'
 
 const Quiz = () => {
@@ -37,7 +38,22 @@ const Quiz = () => {
 		axios.get(`https://opentdb.com/api.php?amount=10&category=${category.value}&difficulty=${diff.value}&type=multiple`)
 			.then((res) => {
 				// console.log(res.data.results)
-				setQuizData(res.data.results)
+				const data = res.data.results
+
+				setQuizData(data.map(el => {
+					// return an copy of object from resuls properties from OpenTrivia API
+					// so I can merge the correct answer and incorrect answer
+					// since they're separated
+					return {
+						category: el.category,
+						type: el.type,
+            difficulty: el.difficulty,
+						question: el.question,
+						answers: [...el.incorrect_answers, el.correct_answer],
+            correct_answer: el.correct_answer,
+            incorrect_answers: el.incorrect_answers
+					}
+				}))
 			})
 
 		// change startGame condition to true. When user press start it means the game is starting

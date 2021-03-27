@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import shuffle from 'lodash.shuffle'
 
 const QuizContent = props => {
-	const questionNumber = 0
+	
+	const [questionNumber, setQuestionNumber] = useState(0)
+	// const [choice, setChoice] = useState([])
+
+	// useEffect(() => {
+	// 	setChoice(props.data[questionNumber].answers)
+	// }, [props.data, questionNumber])
+	// const choice = shuffle(props.data[questionNumber].answers)
 
 	return (
 		<>
@@ -12,6 +20,11 @@ const QuizContent = props => {
 						{ console.log(props.data) }
 						<p>Questions No.{ questionNumber + 1 }</p>
 						<p>{ props.data[questionNumber].question }</p>
+						{ shuffle(props.data[questionNumber].answers).map(el => {
+							return (
+							<p>{el}</p>
+							)})
+						}
 					</div>
 				)
 			}
