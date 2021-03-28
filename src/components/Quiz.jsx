@@ -13,6 +13,8 @@ const Quiz = () => {
 	const [quizData, setQuizData] = useState([])
 	// define state for condition of the game (is the game starting or not)
 	const [startGame, setStartGame] = useState(false)
+	// define state for showing error (validate form)
+	const [showError, setShowError] = useState(false)
 
 	// define options in react-select 'Select' component
 	const categoryOptions = [
@@ -34,6 +36,15 @@ const Quiz = () => {
 		// for debugging
 		// console.log(category.value)
 		// console.log(diff.value)
+
+		// if category or diff state still null then show error and break the function
+		if (category === null || diff === null) {
+			setShowError(true)
+			return
+		}
+
+		// if there is data in category and diff state, continue
+		setShowError(false)
 
 		axios.get(`https://opentdb.com/api.php?amount=10&category=${category.value}&difficulty=${diff.value}&type=multiple`)
 			.then((res) => {
@@ -86,6 +97,10 @@ const Quiz = () => {
 
 				<button>Start Game</button>
 			</form>
+
+			{showError && (
+				<p>Form must be filled</p>
+			)}
 
 			{ startGame !== false && (
 				<QuizContent data={ quizData } />
