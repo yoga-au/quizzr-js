@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
 import axios from 'axios'
+import shuffle from 'lodash.shuffle'
 // import component
 import QuizContent from './QuizContent'
 
@@ -19,7 +20,7 @@ const Quiz = () => {
 	// define options in react-select 'Select' component
 	const categoryOptions = [
 		{ value: '17', label: 'Science and Nature' },
-		{ value: '19', label: 'Mathematics' },
+		{ value: '22', label: 'Geography' },
 		{ value: '15', label: 'Video Games' }
 	]
 
@@ -53,14 +54,14 @@ const Quiz = () => {
 
 				setQuizData(data.map(el => {
 					// return an copy of object from resuls properties from OpenTrivia API
-					// so I can merge the correct answer and incorrect answer
+					// and then we can merge the correct answer and incorrect answer
 					// since they're separated
 					return {
 						category: el.category,
 						type: el.type,
             difficulty: el.difficulty,
 						question: el.question,
-						answers: [...el.incorrect_answers, el.correct_answer],
+						answers: shuffle([...el.incorrect_answers, el.correct_answer]),
             correct_answer: el.correct_answer,
             incorrect_answers: el.incorrect_answers
 					}
@@ -102,8 +103,11 @@ const Quiz = () => {
 				<p>Form must be filled</p>
 			)}
 
-			{ startGame !== false && (
-				<QuizContent data={ quizData } />
+			{ // check if start game button is pressed, prevent error
+				// when react try to render QuizContent component
+				// while props data doesn't exist
+				startGame !== false && (
+					<QuizContent data={ quizData } />
 			)}
 		</div>
 	)
