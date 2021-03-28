@@ -116,6 +116,9 @@ const Quiz = () => {
 					<QuizContent
 						data={ quizData }
 						setStartGame={ setStartGame }
+						setQuizData={ setQuizData }
+						setCategory={ setCategory }
+						setDiff={ setDiff }
 					/>
 			)}
 		</>

@@ -6,33 +6,24 @@ const QuizContent = props => {
 	// define state for question number, use for access specific index
 	// in quiz data coming from props
 	const [questionNumber, setQuestionNumber] = useState(0)
+
 	// define state for storing score
 	const [score, setScore] = useState(0)
+
 	// define state for conditionally change disabled attribute
 	// in answer button and next question button
 	const [answerSubmitted, setAnswerSubmitted] = useState(false)
+
 	// define state for game over condition
 	const [gameOver, setGameOver] = useState(false)
 
+	// define state for check if the answer correct or not
+	// use for display correct and incorrect in Browser
+	const [isCorrect, setIsCorrect] = useState(false)
+
+	// handle answer user submitted
 	const handleAnswer = (answer) => {
-		// for debugging
 		// console.log(el)
-
-		// check if current question is the last one or not
-		// if it's last question, set game over to true
-		if (questionNumber === props.data.length - 1) {
-
-			// check if the answer are correct, then add 1 to score state
-			if (answer === props.data[questionNumber].correct_answer) {
-				setScore(score + 1)
-				console.log('Correct')
-				// console.log(score)
-			}
-
-			setGameOver(true)
-			// break the function if condition are met
-			return
-		}
 
 		// when user submit an answer, set disabled attribute in answer button
 		// controlled by answerSubmitted state
@@ -41,6 +32,7 @@ const QuizContent = props => {
 		// check if the answer are correct, then add 1 to score state
 		if (answer === props.data[questionNumber].correct_answer) {
 			setScore(score + 1)
+			setIsCorrect(true)
 			console.log('Correct')
 			// console.log(score)
 			// break the function if condition are met
@@ -48,14 +40,33 @@ const QuizContent = props => {
 		}
 
 		// wrong answer code goes here
+		setIsCorrect(false)
 		console.log('Incorrect Answer')
 	}
 
+	// handle when user click next question or see result
 	const nextQuestion = () => {
+		// check if current question is the last one or not
+		// if it's last question, set game over to true
+		if (questionNumber === props.data.length - 1) {
+			setGameOver(true)
+			// break the function if condition are met
+			return
+		}
+
 		// add 1 to move index of the question number forward
 		setQuestionNumber(questionNumber + 1)
-		// reset answerSubmitted state to initial state
+		// reset answerSubmitted state
 		setAnswerSubmitted(false)
+		// reset isCorrect state
+		setIsCorrect(false)
+	}
+
+	const handleRestart = () => {
+		props.setDiff(null)
+		props.setCategory(null)
+		props.setQuizData([])
+		props.setStartGame(false)
 	}
 
 	return (
@@ -65,7 +76,6 @@ const QuizContent = props => {
 				// the component while props data doesn't exist
 				props.data.length !== 0 && gameOver === false && (
 					<div>
-						{/* for debugging  */}
 						{/* { console.log(props.data) } */}
 						<p>Questions No.{ questionNumber + 1 }</p>
 
@@ -75,9 +85,8 @@ const QuizContent = props => {
 						{/* Render Answer Choice */}
 						{ props.data[questionNumber].answers.map((el, index) => {
 							return (
-								<div>
+								<div key={ index }>
 									<button
-										key={ index }
 										onClick={ () => handleAnswer(el) }
 										disabled={ answerSubmitted }
 									>
@@ -90,7 +99,18 @@ const QuizContent = props => {
 
 						{/* Render next button when user submit answer */}
 						{answerSubmitted && (
-							<button onClick={ nextQuestion }>Next Question</button>
+							<>
+								<button onClick={ nextQuestion }>{
+									questionNumber === props.data.length - 1 ?
+									'See Result' :
+									'Next Question'
+								}</button>
+								<p>{
+										isCorrect ? 
+										'Correct' : 
+										`Incorrect, the correct answer is: ${props.data[questionNumber].correct_answer}`
+								}</p>
+							</>
 						)}
 
 					</div>
@@ -103,7 +123,7 @@ const QuizContent = props => {
 					<p>Result</p>
 					<p>{ score }</p>
 
-					<button onClick={ () => props.setStartGame(false) }>Restart</button>
+					<button onClick={ handleRestart }>Restart</button>
 				</>
 			)}
 		</>
@@ -112,7 +132,10 @@ const QuizContent = props => {
 
 QuizContent.propTypes = {
 	data: PropTypes.array,
-	setStartGame: PropTypes.func
+	setStartGame: PropTypes.func,
+	setQuizData: PropTypes.func,
+	setCategory: PropTypes.func,
+	setDiff: PropTypes.func
 }
 
 export default QuizContent
