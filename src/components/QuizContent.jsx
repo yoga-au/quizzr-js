@@ -18,25 +18,43 @@ const QuizContent = props => {
 		// for debugging
 		// console.log(el)
 
+		// check if current question is the last one or not
+		// if it's last question, set game over to true
 		if (questionNumber === props.data.length - 1) {
+
+			// check if the answer are correct, then add 1 to score state
+			if (answer === props.data[questionNumber].correct_answer) {
+				setScore(score + 1)
+				console.log('Correct')
+				// console.log(score)
+			}
+
 			setGameOver(true)
+			// break the function if condition are met
 			return
 		}
 
+		// when user submit an answer, set disabled attribute in answer button
+		// controlled by answerSubmitted state
 		setAnswerSubmitted(true)
 
+		// check if the answer are correct, then add 1 to score state
 		if (answer === props.data[questionNumber].correct_answer) {
 			setScore(score + 1)
+			console.log('Correct')
 			// console.log(score)
 			// break the function if condition are met
 			return
 		}
 
+		// wrong answer code goes here
 		console.log('Incorrect Answer')
 	}
 
 	const nextQuestion = () => {
+		// add 1 to move index of the question number forward
 		setQuestionNumber(questionNumber + 1)
+		// reset answerSubmitted state to initial state
 		setAnswerSubmitted(false)
 	}
 
@@ -50,9 +68,11 @@ const QuizContent = props => {
 						{/* for debugging  */}
 						{/* { console.log(props.data) } */}
 						<p>Questions No.{ questionNumber + 1 }</p>
+
+						{/* Render Question */}
 						<p>{ he.decode(props.data[questionNumber].question) }</p>
 
-						{/* Answer Choice */}
+						{/* Render Answer Choice */}
 						{ props.data[questionNumber].answers.map((el, index) => {
 							return (
 								<div>
@@ -61,12 +81,14 @@ const QuizContent = props => {
 										onClick={ () => handleAnswer(el) }
 										disabled={ answerSubmitted }
 									>
+										{/* Answer Content */}
 										{ he.decode(el) }
 									</button>
 								</div>
 							)})
 						}
 
+						{/* Render next button when user submit answer */}
 						{answerSubmitted && (
 							<button onClick={ nextQuestion }>Next Question</button>
 						)}
@@ -74,10 +96,14 @@ const QuizContent = props => {
 					</div>
 				)
 			}
+
+			{/* Render result when the game is over */}
 			{gameOver === true && (
 				<>
 					<p>Result</p>
 					<p>{ score }</p>
+
+					<button onClick={ () => props.setStartGame(false) }>Restart</button>
 				</>
 			)}
 		</>
@@ -85,7 +111,8 @@ const QuizContent = props => {
 }
 
 QuizContent.propTypes = {
-	data: PropTypes.array
+	data: PropTypes.array,
+	setStartGame: PropTypes.func
 }
 
 export default QuizContent

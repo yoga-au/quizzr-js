@@ -52,6 +52,8 @@ const Quiz = () => {
 				// console.log(res.data.results)
 				const data = res.data.results
 
+				// note: better to manipulate any data you want to pass to children in the parent
+				// since the data in props are read-only
 				setQuizData(data.map(el => {
 					// return an copy of object from resuls properties from OpenTrivia API
 					// and then we can merge the correct answer and incorrect answer
@@ -73,43 +75,50 @@ const Quiz = () => {
 	}
 
 	return (
-		<div>
-			<h1>Quiz App</h1>
-			{/* for debugging
-			{ console.log(category) }
-			{ console.log(diff) }
-			console.log(quizData) */
-			}
-
-			<form onSubmit={ handleStart }>
-				<p>Choose Category</p>
-				<Select
-					defaultValue={ category }
-					onChange={ setCategory }
-					options={ categoryOptions }
-				/>
-
-				<p>Choose Difficulty</p>
-				<Select
-					defaultValue={ diff }
-					onChange= { setDiff }
-					options={ diffOptions }
-				/>
-
-				<button>Start Game</button>
-			</form>
-
-			{showError && (
-				<p>Form must be filled</p>
+		<>
+			{startGame === false && (
+				<div>
+					<h1>Quiz App</h1>
+					{/* for debugging
+					{ console.log(category) }
+					{ console.log(diff) }
+					console.log(quizData) */
+					}
+		
+					<form onSubmit={ handleStart }>
+						<p>Choose Category</p>
+						<Select
+							defaultValue={ category }
+							onChange={ setCategory }
+							options={ categoryOptions }
+						/>
+		
+						<p>Choose Difficulty</p>
+						<Select
+							defaultValue={ diff }
+							onChange= { setDiff }
+							options={ diffOptions }
+						/>
+		
+						<button>Start Game</button>
+					</form>
+		
+					{showError && (
+						<p>Form must be filled</p>
+					)}
+		
+				</div>
 			)}
-
 			{ // check if start game button is pressed, prevent error
 				// when react try to render QuizContent component
 				// while props data doesn't exist
 				startGame !== false && (
-					<QuizContent data={ quizData } />
+					<QuizContent
+						data={ quizData }
+						setStartGame={ setStartGame }
+					/>
 			)}
-		</div>
+		</>
 	)
 }
 
