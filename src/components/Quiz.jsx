@@ -2,8 +2,19 @@ import React, { useState } from 'react'
 import Select from 'react-select'
 import axios from 'axios'
 import shuffle from 'lodash.shuffle'
+
 // import component
 import QuizContent from './QuizContent'
+
+// import styled component
+import {
+	QuizTitle,
+	FormLabel,
+	StartButton
+} from '../styles/StyledComponent'
+
+// import custom style for react-select
+import { customStyle } from '../styles/ReactSelectStyle'
 
 const Quiz = () => {
 	// define state for category, difficulty,
@@ -77,10 +88,10 @@ const Quiz = () => {
 	}
 
 	return (
-		<>
+		<div>
 			{startGame === false && (
 				<div>
-					<h1>Quiz App</h1>
+					<QuizTitle>Quizzr</QuizTitle>
 					{/*
 					{ console.log(category) }
 					{ console.log(diff) }
@@ -88,21 +99,23 @@ const Quiz = () => {
 					}
 		
 					<form onSubmit={ handleStart }>
-						<p>Choose Category</p>
+						<FormLabel>Choose Category</FormLabel>
 						<Select
 							defaultValue={ category }
 							onChange={ setCategory }
 							options={ categoryOptions }
+							styles={ customStyle }
 						/>
 		
-						<p>Choose Difficulty</p>
+						<FormLabel>Choose Difficulty</FormLabel>
 						<Select
 							defaultValue={ diff }
 							onChange= { setDiff }
 							options={ diffOptions }
+							styles={ customStyle }
 						/>
 		
-						<button>Start Game</button>
+						<StartButton>Start Game</StartButton>
 					</form>
 		
 					{showError && (
@@ -128,7 +141,7 @@ const Quiz = () => {
 						setDiff={ setDiff }
 					/>
 			)}
-		</>
+		</div>
 	)
 }
 
