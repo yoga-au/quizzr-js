@@ -3,22 +3,16 @@ import PropTypes from 'prop-types'
 import he from 'he'
 
 const QuizContent = props => {
-	// define state for question number, use for access specific index
-	// in quiz data coming from props
-	const [questionNumber, setQuestionNumber] = useState(0)
-
+	// define state for question number, use for access specific index in quiz data coming from props
 	// define state for storing score
-	const [score, setScore] = useState(0)
-
 	// define state for conditionally change disabled attribute
-	// in answer button and next question button
-	const [answerSubmitted, setAnswerSubmitted] = useState(false)
-
 	// define state for game over condition
-	const [gameOver, setGameOver] = useState(false)
-
 	// define state for check if the answer correct or not
-	// use for display correct and incorrect in Browser
+
+	const [questionNumber, setQuestionNumber] = useState(0)
+	const [score, setScore] = useState(0)
+	const [answerSubmitted, setAnswerSubmitted] = useState(false)
+	const [gameOver, setGameOver] = useState(false)
 	const [isCorrect, setIsCorrect] = useState(false)
 
 	// handle answer user submitted
@@ -56,13 +50,15 @@ const QuizContent = props => {
 
 		// add 1 to move index of the question number forward
 		setQuestionNumber(questionNumber + 1)
-		// reset answerSubmitted state
+
+		// reset answerSubmitted state and isCorrect state
 		setAnswerSubmitted(false)
-		// reset isCorrect state
 		setIsCorrect(false)
 	}
 
 	const handleRestart = () => {
+		// reset state in quiz component
+		// by lifting up state
 		props.setDiff(null)
 		props.setCategory(null)
 		props.setQuizData([])

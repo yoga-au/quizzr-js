@@ -6,15 +6,15 @@ import shuffle from 'lodash.shuffle'
 import QuizContent from './QuizContent'
 
 const Quiz = () => {
-	// define state for category select component
+	// define state for category, difficulty,
+	// quiz data from OpenTrivia API
+	// condition of the game (is the game starting or not)
+	// showing error (validate form)
+
 	const [category, setCategory] = useState(null)
-	// define state for difficulty select component
 	const [diff, setDiff] = useState(null)
-	// define state for quiz data from response from OpenTrivia API
 	const [quizData, setQuizData] = useState([])
-	// define state for condition of the game (is the game starting or not)
 	const [startGame, setStartGame] = useState(false)
-	// define state for showing error (validate form)
 	const [showError, setShowError] = useState(false)
 
 	// define options in react-select 'Select' component
@@ -34,11 +34,10 @@ const Quiz = () => {
 	// send request to OpenTrivia API
 	const handleStart = (ev) => {
 		ev.preventDefault()
-		// for debugging
 		// console.log(category.value)
 		// console.log(diff.value)
 
-		// if category or diff state still null then show error and break the function
+		// check if category or diff state are null (validation)
 		if (category === null || diff === null) {
 			setShowError(true)
 			return
@@ -79,7 +78,7 @@ const Quiz = () => {
 			{startGame === false && (
 				<div>
 					<h1>Quiz App</h1>
-					{/* for debugging
+					{/*
 					{ console.log(category) }
 					{ console.log(diff) }
 					console.log(quizData) */
