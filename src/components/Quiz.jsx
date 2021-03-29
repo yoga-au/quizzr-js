@@ -16,6 +16,7 @@ const Quiz = () => {
 	const [quizData, setQuizData] = useState([])
 	const [startGame, setStartGame] = useState(false)
 	const [showError, setShowError] = useState(false)
+	const [showLoading, setShowLoading] = useState(false)
 
 	// define options in react-select 'Select' component
 	const categoryOptions = [
@@ -45,6 +46,7 @@ const Quiz = () => {
 
 		// if there is data in category and diff state, continue
 		setShowError(false)
+		setShowLoading(true)
 
 		axios.get(`https://opentdb.com/api.php?amount=10&category=${category.value}&difficulty=${diff.value}&type=multiple`)
 			.then((res) => {
@@ -67,6 +69,7 @@ const Quiz = () => {
             incorrect_answers: el.incorrect_answers
 					}
 				}))
+				setShowLoading(false)
 			})
 
 		// change startGame condition to true. When user press start it means the game is starting
@@ -108,6 +111,11 @@ const Quiz = () => {
 		
 				</div>
 			)}
+
+			{showLoading && (
+				<p>Generating Questions ...</p>
+			)}
+
 			{ // check if start game button is pressed, prevent error
 				// when react try to render QuizContent component
 				// while props data doesn't exist
