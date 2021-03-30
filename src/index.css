@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html {
+  background: linear-gradient(134.41deg, #ECF1FD, #D8E2FB 100%);
+}
+
 body {
   font-family: 'Quicksand', sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -2,6 +2,18 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import he from 'he'
 
+// import styled component
+import {
+	QuestionContainer,
+	NumContainer,
+	QuestionNum,
+	Question,
+	ChoiceButton,
+	Choice,
+	NextQuestion,
+	AnswerCheckContainer
+} from '../styles/StyledComponent'
+
 const QuizContent = props => {
 	// define state for question number, use for access specific index in quiz data coming from props
 	// define state for storing score
@@ -73,22 +85,39 @@ const QuizContent = props => {
 				props.data.length !== 0 && gameOver === false && (
 					<div>
 						{/* { console.log(props.data) } */}
-						<p>Questions No.{ questionNumber + 1 }</p>
 
+						<NumContainer>
+							<QuestionNum>Questions { questionNumber + 1 } / { props.data.length }</QuestionNum>
+						</NumContainer>
+						
 						{/* Render Question */}
-						<p>{ he.decode(props.data[questionNumber].question) }</p>
+						<QuestionContainer>
+							<Question>{ he.decode(props.data[questionNumber].question) }</Question>
+						</QuestionContainer>
+
+						{answerSubmitted && (
+							<AnswerCheckContainer correct={ isCorrect }>
+								<p>{
+										isCorrect ? 
+										'Correct' : 
+										`Incorrect`
+								}</p>
+							</AnswerCheckContainer>
+						)}
 
 						{/* Render Answer Choice */}
 						{ props.data[questionNumber].answers.map((el, index) => {
 							return (
 								<div key={ index }>
-									<button
+									<ChoiceButton
 										onClick={ () => handleAnswer(el) }
 										disabled={ answerSubmitted }
 									>
 										{/* Answer Content */}
-										{ he.decode(el) }
-									</button>
+										<Choice>
+											{ he.decode(el) }
+										</Choice>
+									</ChoiceButton>
 								</div>
 							)})
 						}
@@ -96,16 +125,11 @@ const QuizContent = props => {
 						{/* Render next button when user submit answer */}
 						{answerSubmitted && (
 							<>
-								<button onClick={ nextQuestion }>{
+								<NextQuestion onClick={ nextQuestion }>{
 									questionNumber === props.data.length - 1 ?
 									'See Result' :
 									'Next Question'
-								}</button>
-								<p>{
-										isCorrect ? 
-										'Correct' : 
-										`Incorrect, the correct answer is: ${props.data[questionNumber].correct_answer}`
-								}</p>
+								}</NextQuestion>
 							</>
 						)}
 

@@ -115,7 +115,7 @@ const Quiz = () => {
 							styles={ customStyle }
 						/>
 		
-						<StartButton>Start Game</StartButton>
+						<StartButton>Start Quiz</StartButton>
 					</form>
 		
 					{showError && (
