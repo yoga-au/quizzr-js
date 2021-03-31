@@ -18,6 +18,8 @@ import {
 // import custom style for react-select
 import { customStyle } from '../styles/ReactSelectStyle'
 
+import logo from '../images/logo.svg'
+
 const Quiz = () => {
 	// define state for category, difficulty,
 	// quiz data from OpenTrivia API
@@ -93,7 +95,12 @@ const Quiz = () => {
 		<div>
 			{startGame === false && (
 				<div>
-					<QuizTitle>Quizzr</QuizTitle>
+					<QuizTitle>
+						<div>
+							<img src={logo} alt="Logo"/> 
+						</div>
+						Quizzr
+					</QuizTitle>
 					{/*
 					{ console.log(category) }
 					{ console.log(diff) }
