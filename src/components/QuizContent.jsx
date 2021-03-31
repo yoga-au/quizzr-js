@@ -11,7 +11,14 @@ import {
 	ChoiceButton,
 	Choice,
 	NextQuestion,
-	AnswerCheckContainer
+	AnswerCheckContainer,
+	CompletedTxtContainer,
+	ResultContainer,
+	ResultText,
+	Score,
+	StatsContainer,
+	Stats,
+	Restart,
 } from '../styles/StyledComponent'
 
 const QuizContent = props => {
@@ -140,10 +147,27 @@ const QuizContent = props => {
 			{/* Render result when the game is over */}
 			{gameOver === true && (
 				<>
-					<p>Result</p>
-					<p>{ score }</p>
+					<CompletedTxtContainer>
+						<p>Quiz Completed</p>
+					</CompletedTxtContainer>
 
-					<button onClick={ handleRestart }>Restart</button>
+					<ResultContainer>
+						<ResultText>Your Score</ResultText>
+						<Score>{ score }</Score>
+					</ResultContainer>
+
+					<StatsContainer>
+						<Stats correct>
+							<p>Correct Answer</p>
+							<p style={{ marginTop: '.5rem' }}>{ score }</p>
+						</Stats>
+						<Stats correct={ false }>
+							<p>Incorrect Answer</p>
+							<p style={{ marginTop: '.5rem' }}>{ props.data.length - score }</p>
+						</Stats>
+					</StatsContainer>
+
+					<Restart onClick={ handleRestart }>Play Again</Restart>
 				</>
 			)}
 		</>

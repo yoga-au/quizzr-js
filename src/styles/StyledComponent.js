@@ -91,10 +91,63 @@ export const NextQuestion = styled(BtnReset)`
 `
 
 export const AnswerCheckContainer = styled(QuestionContainer)`
-	background: ${props => props.correct ? '#99FFA3' : '#FFCBCB'};
-	color: black;
+	background: ${props => props.correct ? '#B6FFBD' : '#FFDBDB'};
+	color: ${props => props.correct ? '#2FA306' : '#E85252'};
 	text-align: center;
 	/* border: .5px solid #03B014; */
 	border: ${props => props.correct ? '.5px solid #03B014' : '.5px solid #B00303' };
 	font-weight: 700;
+`
+
+export const CompletedTxtContainer = styled.div`
+	/* border: 1px solid black; */
+	border-radius: 1.5rem;
+	width: 50%;
+	text-align: center;
+	margin: 0 auto 1rem;
+	padding: .5rem 0;
+	color: #4E90FE;
+	font-weight: 700;
+`
+
+export const ResultContainer = styled.div`
+	/* border: 1px solid black; */
+	border-radius: 100%;
+	box-shadow: 3px 6px 18px rgba(0, 0, 0, 0.1);
+	background: #4E90FE;
+	color: white;
+	width: 8rem;
+	height: 8rem;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`
+
+export const ResultText = styled.p`
+	color: rgba(255, 255, 255, .8);
+`
+
+export const Score = styled.p`
+	font-size: 2.5em;
+	font-weight: 700;
+`
+
+export const StatsContainer = styled.div`
+	margin-top: 2rem;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 1rem;
+`
+
+export const Stats = styled(AnswerCheckContainer)`
+	text-align: left;
+`
+
+export const Restart = styled(NextQuestion)`
+	width: 100%;
+	padding-right: 0;
+	padding-left: 0;
+	text-align: center;
 `
