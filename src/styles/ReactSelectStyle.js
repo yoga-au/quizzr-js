@@ -1,8 +1,8 @@
 export const customStyle = {
-	control: (baseStyle) => ({
+	control: (baseStyle, state) => ({
 		...baseStyle,
 		borderRadius: '1.75em',
-		// borderColor: '#77AAFE',
+		borderColor: state.selectProps.error ? '#FF0000' : 'hsl(0, 0%, 80%)',
 		padding: '0.5em',
 
 		// ':hover': {

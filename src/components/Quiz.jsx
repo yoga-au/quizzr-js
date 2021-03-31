@@ -10,7 +10,9 @@ import QuizContent from './QuizContent'
 import {
 	QuizTitle,
 	FormLabel,
-	StartButton
+	StartButton,
+	Loading,
+	AnswerCheckContainer
 } from '../styles/StyledComponent'
 
 // import custom style for react-select
@@ -105,6 +107,7 @@ const Quiz = () => {
 							onChange={ setCategory }
 							options={ categoryOptions }
 							styles={ customStyle }
+							error={ showError }
 						/>
 		
 						<FormLabel>Choose Difficulty</FormLabel>
@@ -113,20 +116,21 @@ const Quiz = () => {
 							onChange= { setDiff }
 							options={ diffOptions }
 							styles={ customStyle }
+							error={ showError }
 						/>
 		
 						<StartButton>Start Quiz</StartButton>
 					</form>
 		
 					{showError && (
-						<p>Form must be filled</p>
+						<AnswerCheckContainer style={{ marginTop: '2rem' }}>Category and Difficulty <br /> must be filled</AnswerCheckContainer>
 					)}
 		
 				</div>
 			)}
 
 			{showLoading && (
-				<p>Generating Questions ...</p>
+				<Loading>Generating Questions ...</Loading>
 			)}
 
 			{ // check if start game button is pressed, prevent error

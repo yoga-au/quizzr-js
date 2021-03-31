@@ -26,8 +26,8 @@ export const StartButton = styled(BtnReset)`
 	font-size: 1rem;
 	font-weight: 700;
 	letter-spacing: 1px;
-	background: linear-gradient(180deg, #87B4FE 0%, #5490FA 100%);
-	box-shadow: 2px 6px 12px rgba(138, 183, 255, 0.54);
+	background: #4E90FE;
+	/* box-shadow: 2px 6px 12px rgba(138, 183, 255, 0.54); */
 	color: white;
 `
 
@@ -150,4 +150,12 @@ export const Restart = styled(NextQuestion)`
 	padding-right: 0;
 	padding-left: 0;
 	text-align: center;
+`
+
+export const Loading = styled(QuestionContainer)`
+	text-align: center;
+	color: #1763E6;
+	font-weight: 700;
+	margin-top: 2rem;
+	background: none;
 `
