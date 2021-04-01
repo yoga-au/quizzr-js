@@ -152,6 +152,20 @@ const Quiz = () => {
 						setDiff={ setDiff }
 					/>
 			)}
+
+			{startGame === false && (
+				<div style={{ width: '100%', textAlign: 'center', marginTop: '1.25rem' }}>
+					<a
+						href="https://github.com/yoga-au/quizzr-js"
+						target="_blank"
+						rel="noopener noreferrer"
+						style={{ color: 'black', fontSize: '.9em' }}
+					>
+						Source Code on GitHub
+					</a>
+				</div>
+				)
+			}
 		</div>
 	)
 }

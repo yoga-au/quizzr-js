@@ -46,7 +46,7 @@ const QuizContent = props => {
 		if (answer === props.data[questionNumber].correct_answer) {
 			setScore(score + 1)
 			setIsCorrect(true)
-			console.log('Correct')
+			// console.log('Correct')
 			// console.log(score)
 			// break the function if condition are met
 			return
@@ -54,7 +54,7 @@ const QuizContent = props => {
 
 		// wrong answer code goes here
 		setIsCorrect(false)
-		console.log('Incorrect Answer')
+		// console.log('Incorrect Answer')
 	}
 
 	// handle when user click next question or see result
@@ -168,6 +168,17 @@ const QuizContent = props => {
 					</StatsContainer>
 
 					<Restart onClick={ handleRestart }>Play Again</Restart>
+
+					<div style={{ width: '100%', textAlign: 'center', marginTop: '1.25rem' }}>
+						<a
+							href="https://github.com/yoga-au/quizzr-js"
+							target="_blank"
+							rel="noopener noreferrer"
+							style={{ color: 'black', fontSize: '.9em' }}
+						>
+							Source Code on GitHub
+						</a>
+					</div>
 				</>
 			)}
 		</>
